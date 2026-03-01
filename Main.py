@@ -8,7 +8,7 @@ import os
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
-MY_GUILD = discord.Object(id=1469767210959507569)
+MY_GUILD = discord.Object(id=guildidhere)
 
 
 class MyClient(discord.Client):
