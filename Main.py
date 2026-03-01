@@ -5,7 +5,7 @@ import random
 
 token = input('Token: ')
 
-MY_GUILD = discord.Object(id=1469767210959507569)
+MY_GUILD = discord.Object(id='guild id)
 
 
 class MyClient(discord.Client):
@@ -35,8 +35,8 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-        channel = member.guild.get_channel(1470106625615462685)
-        role = member.guild.get_role(1472988653767626782)
+        channel = member.guild.get_channel('channel id)
+        role = member.guild.get_role('role id)
         to_send = f'Welcome {member.mention} to Rays`s restaurant hope you enjoy!'
         await channel.send(to_send)
         await member.add_roles(role)
@@ -55,8 +55,8 @@ async def git(ctx: discord.Interaction):
 
 @client.tree.command(name='clear', description='Delete channel messages')
 async def clear(ctx: discord.Interaction, times:int):
-    role = ctx.guild.get_role(1472983975269236937)
-    role1 = ctx.guild.get_role(1473073651891966042)
+    role = ctx.guild.get_role('role id)
+    role1 = ctx.guild.get_role('role id)
     if role in ctx.user.roles or role1 in ctx.user.roles:
         await ctx.response.defer(ephemeral=True)
 
@@ -74,8 +74,8 @@ async def clear(ctx: discord.Interaction, times:int):
 
 @client.tree.command(name='ban', description='Ban a member from the server')
 async def ban(ctx: discord.Interaction, member: discord.Member, reason: str=None):
-    role = ctx.guild.get_role(1472983975269236937)
-    role1 = ctx.guild.get_role(1473073651891966042)
+    role = ctx.guild.get_role('role id)
+    role1 = ctx.guild.get_role('role id)
     if role in ctx.user.roles or role1 in ctx.user.roles:
          await member.ban(reason=reason)
          await ctx.response.send_message(
@@ -90,8 +90,8 @@ async def ban(ctx: discord.Interaction, member: discord.Member, reason: str=None
 
 @client.tree.command(name='unban', description='Unban a member from the server')
 async def unban(ctx: discord.Interaction, member: discord.User):
-    role = ctx.guild.get_role(1472983975269236937)
-    role1 = ctx.guild.get_role(1473073651891966042)
+    role = ctx.guild.get_role(role id)
+    role1 = ctx.guild.get_role('role id)
     if role in ctx.user.roles or role1 in ctx.user.roles:
         async for entry in ctx.guild.bans():
             if entry.user.id == member.id:
@@ -113,8 +113,8 @@ async def unban(ctx: discord.Interaction, member: discord.User):
 @client.tree.command(name='kick', description='Kick a member from the server')
 async def kick(interaction: discord.Interaction, member: discord.Member, reason: str = None):
 
-    role = interaction.guild.get_role(1472983975269236937)
-    role1 = interaction.guild.get_role(1473073651891966042)
+    role = interaction.guild.get_role(roleid)
+    role1 = interaction.guild.get_role(roleid)
 
     if role in interaction.user.roles or role1 in interaction.user.roles:
 
