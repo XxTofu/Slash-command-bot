@@ -23,10 +23,15 @@ Uses Discord's built-in permissions instead of hardcoded roles for better securi
 
 Commands
 Command	Description
+
 /clear <amount>	Deletes 1–100 messages (limit enforced)
+
 /ban <member> [reason]	Bans a member
+
 /unban <member>	Unbans a member
+
 /kick <member> [reason]	Kicks a member
+
 ✅ Safety Features
 
 Uses Discord permission checks (manage_messages, ban_members, kick_members)
@@ -44,8 +49,11 @@ Ephemeral moderation confirmations
 📅 Utility Commands
 Command	Description
 /joined <member>	Shows when a user joined the server
+
 /git	Displays the bot owner's GitHub profile
+
 💕 Fun Commands
+
 /ship
 
 Generates:
@@ -57,7 +65,9 @@ Random love compatibility percentage (1–100%)
 Example:
 
 Ship Name: Aleon  
+
 ❤️ @Alex has a 87% compatibility with @Leon ❤️
+
 /rob
 
 Displays a user’s avatar
@@ -77,7 +87,6 @@ Permission-based moderation system
 Role hierarchy protection logic
 
 🔐 Required Bot Permissions
-
 
 ✅ Manage Messages
 
