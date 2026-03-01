@@ -2,10 +2,13 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import random
+from dotenv import load_dotenv
+import os
 
-token = input('Token: ')
+load_dotenv()
+token = os.getenv('DISCORD_TOKEN')
 
-MY_GUILD = discord.Object(id='guild id)
+MY_GUILD = discord.Object(id=1469767210959507569)
 
 
 class MyClient(discord.Client):
@@ -35,8 +38,8 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-        channel = member.guild.get_channel('channel id)
-        role = member.guild.get_role('role id)
+        channel = member.guild.get_channel(1470106625615462685)
+        role = member.guild.get_role(1472988653767626782)
         to_send = f'Welcome {member.mention} to Rays`s restaurant hope you enjoy!'
         await channel.send(to_send)
         await member.add_roles(role)
@@ -55,8 +58,8 @@ async def git(ctx: discord.Interaction):
 
 @client.tree.command(name='clear', description='Delete channel messages')
 async def clear(ctx: discord.Interaction, times:int):
-    role = ctx.guild.get_role('role id)
-    role1 = ctx.guild.get_role('role id)
+    role = ctx.guild.get_role(1472983975269236937)
+    role1 = ctx.guild.get_role(1473073651891966042)
     if role in ctx.user.roles or role1 in ctx.user.roles:
         await ctx.response.defer(ephemeral=True)
 
@@ -74,8 +77,8 @@ async def clear(ctx: discord.Interaction, times:int):
 
 @client.tree.command(name='ban', description='Ban a member from the server')
 async def ban(ctx: discord.Interaction, member: discord.Member, reason: str=None):
-    role = ctx.guild.get_role('role id)
-    role1 = ctx.guild.get_role('role id)
+    role = ctx.guild.get_role(1472983975269236937)
+    role1 = ctx.guild.get_role(1473073651891966042)
     if role in ctx.user.roles or role1 in ctx.user.roles:
          await member.ban(reason=reason)
          await ctx.response.send_message(
@@ -90,8 +93,8 @@ async def ban(ctx: discord.Interaction, member: discord.Member, reason: str=None
 
 @client.tree.command(name='unban', description='Unban a member from the server')
 async def unban(ctx: discord.Interaction, member: discord.User):
-    role = ctx.guild.get_role(role id)
-    role1 = ctx.guild.get_role('role id)
+    role = ctx.guild.get_role(1472983975269236937)
+    role1 = ctx.guild.get_role(1473073651891966042)
     if role in ctx.user.roles or role1 in ctx.user.roles:
         async for entry in ctx.guild.bans():
             if entry.user.id == member.id:
@@ -113,8 +116,8 @@ async def unban(ctx: discord.Interaction, member: discord.User):
 @client.tree.command(name='kick', description='Kick a member from the server')
 async def kick(interaction: discord.Interaction, member: discord.Member, reason: str = None):
 
-    role = interaction.guild.get_role(roleid)
-    role1 = interaction.guild.get_role(roleid)
+    role = interaction.guild.get_role(1472983975269236937)
+    role1 = interaction.guild.get_role(1473073651891966042)
 
     if role in interaction.user.roles or role1 in interaction.user.roles:
 
@@ -145,7 +148,7 @@ async def kick(interaction: discord.Interaction, member: discord.Member, reason:
             ephemeral=True
         )        
 
-@client.tree.command(name='ship')
+@client.tree.command(name='ship', description='Calculate love compatibility and generate a cute ship name 💕')
 async def ship(ctx:discord.Interaction, member1: discord.Member, member2 : discord.Member):
     percent = random.randint(1, 100)
     name1 = str(member1.display_name)
@@ -164,7 +167,7 @@ async def ship(ctx:discord.Interaction, member1: discord.Member, member2 : disco
     await ctx.response.send_message(f'Ship Name: {shipname} \n❤️{member1.mention} has a {percent}% compatibility with {member2.mention}❤️')
 
 
-@client.tree.command(name='rob')
+@client.tree.command(name='rob', description='Steal a user`s avatar')
 async def rob(ctx:discord.Interaction, member: discord.Member):
     if member.display_avatar == member.default_avatar:
         await ctx.response.send_message(f'Default Discord avatar...')
