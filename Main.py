@@ -212,9 +212,9 @@ async def rob(ctx:discord.Interaction, member: discord.Member):
 @ban.error
 @unban.error
 @kick.error
-async def permission_error(interaction: discord.Interaction, error):
+async def permission_error(ctx: discord.Interaction, error):
     if isinstance(error, app_commands.errors.MissingPermissions):
-        await interaction.response.send_message(
+        await ctx.response.send_message(
             '❌ You don`t have the required permissions to use this command.',
             ephemeral=True
         )
