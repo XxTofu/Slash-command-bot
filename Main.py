@@ -4,12 +4,14 @@ from discord import app_commands
 import random
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
-MY_GUILD = discord.Object(id=guildidhere)
+MY_GUILD = discord.Object(id=guild id)
 
+balances = {}
 
 class MyClient(discord.Client):
     user: discord.ClientUser
@@ -36,14 +38,16 @@ async def on_ready():
     print(f'Logged as {client.user}')
     print('-------')
 
+
 @client.event
 async def on_member_join(member):
-        channel = member.guild.get_channel(welcome channel id)
-        role = member.guild.get_role(role id here)
+        channel = member.guild.get_channel(channel id)
+        role = member.guild.get_role(role id)
         to_send = f'Welcome {member.mention} to Rays`s restaurant hope you enjoy!'
         await channel.send(to_send)
         await member.add_roles(role)
 
+#Joined
 @client.tree.command(name='joined',description='Show when a user joined the server')
 async def joined(ctx: discord.Interaction, member:discord.Member):
     if member.joined_at is None:
@@ -51,12 +55,12 @@ async def joined(ctx: discord.Interaction, member:discord.Member):
     else:
         await ctx.response.send_message(f'{member} joined {discord.utils.format_dt(member.joined_at)}')
 
-
+#Github
 @client.tree.command(name='git',description='Show the github profile')
 async def git(ctx: discord.Interaction):
     await ctx.response.send_message('Here`s my owner profile on github: https://github.com/XxTofu')
 
-
+#clear
 @client.tree.command(name='clear', description='Delete channel messages (max 100)')
 @app_commands.checks.has_permissions(manage_messages=True)
 async def clear(ctx: discord.Interaction, times: int):
@@ -86,7 +90,14 @@ async def clear(ctx: discord.Interaction, times: int):
         ephemeral=True
     )
 
+#Timeout
+@client.tree.command(name='timeout', description='Timeout a member')
+@app_commands.checks.has_permissions(moderate_members=True)
+async def timeout(ctx: discord.Interaction, member: discord.Member, minutes: int):
+    await member.timeout(timedelta(minutes=minutes))
+    await ctx.response.send_message(f'⏳ {member.mention} timed out for {minutes} minutes.')
 
+#Ban
 @client.tree.command(name='ban', description='Ban a member from the server')
 @app_commands.checks.has_permissions(ban_members=True)
 async def ban(ctx: discord.Interaction, member: discord.Member, reason: str = None):
@@ -108,10 +119,11 @@ async def ban(ctx: discord.Interaction, member: discord.Member, reason: str = No
     await member.ban(reason=reason)
 
     await ctx.response.send_message(
-        f'✅ {member} was banned.\nReason: {reason or "No reason provided"}'
+        f'✅ {member} was banned.\nReason: {reason or "No reason provided"}',
+        ephemeral=True
     )
 
-
+#Unban
 @client.tree.command(name='unban', description='Unban a member from the server')
 @app_commands.checks.has_permissions(ban_members=True)
 async def unban(ctx: discord.Interaction, member: discord.User):
@@ -127,7 +139,8 @@ async def unban(ctx: discord.Interaction, member: discord.User):
         if entry.user.id == member.id:
             await ctx.guild.unban(member)
             await ctx.response.send_message(
-                f'✅ {member.mention} was unbanned.'
+                f'✅ {member.mention} was unbanned.',
+                ephemeral=True
             )
             return
 
@@ -136,7 +149,7 @@ async def unban(ctx: discord.Interaction, member: discord.User):
         ephemeral=True
     )
 
-
+#kick
 @client.tree.command(name='kick', description='Kick a member from the server')
 @app_commands.checks.has_permissions(kick_members=True)
 async def kick(ctx: discord.Interaction, member: discord.Member, reason: str = None):
@@ -176,7 +189,7 @@ async def kick(ctx: discord.Interaction, member: discord.Member, reason: str = N
         ephemeral=True
     )
 
-
+#ship
 @client.tree.command(name='ship', description='Calculate love compatibility and generate a cute ship name 💕')
 async def ship(ctx:discord.Interaction, member1: discord.Member, member2 : discord.Member):
     percent = random.randint(1, 100)
@@ -195,11 +208,11 @@ async def ship(ctx:discord.Interaction, member1: discord.Member, member2 : disco
      
     await ctx.response.send_message(f'Ship Name: {shipname} \n❤️{member1.mention} has a {percent}% compatibility with {member2.mention}❤️')
 
-
+#rob
 @client.tree.command(name='rob', description='Steal a user`s avatar')
 async def rob(ctx:discord.Interaction, member: discord.Member):
-    role = ctx.guild.get_role(roleid if you want)you can remove this lines here this one
-    if role in ctx.user.roles:this one
+    role = ctx.guild.get_role(roleid)
+    if role in ctx.user.roles:
         if member.display_avatar == member.default_avatar:
             await ctx.response.send_message('The user has the default avatar')
         else:
@@ -218,5 +231,6 @@ async def permission_error(ctx: discord.Interaction, error):
             '❌ You don`t have the required permissions to use this command.',
             ephemeral=True
         )
+
 
 client.run(token)
